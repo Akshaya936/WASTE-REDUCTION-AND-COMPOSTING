@@ -1,0 +1,170 @@
+//html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Waste Reduction & Composting System</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#track">Track Waste</a></li>
+                <li><a href="#monitor">Compost Monitoring</a></li>
+                <li><a href="#dashboard">Dashboard</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Home Section -->
+    <section id="home" class="section">
+        <h1>Welcome to Waste Reduction & Composting System</h1>
+        <p>Track your waste, monitor your compost, and make the earth greener!</p>
+    </section>
+
+    <!-- Waste Tracking Section -->
+    <section id="track" class="section">
+        <h2>Track Your Waste</h2>
+        <form id="wasteForm">
+            <label for="wasteType">Waste Type:</label>
+            <select id="wasteType">
+                <option value="food">Food Waste</option>
+                <option value="garden">Garden Waste</option>
+                <option value="other">Other Organic Waste</option>
+            </select>
+
+            <label for="wasteAmount">Amount (kg):</label>
+            <input type="number" id="wasteAmount" required>
+
+            <button type="button" onclick="trackWaste()">Track Waste</button>
+        </form>
+        <div id="wasteResult"></div>
+    </section>
+
+    <!-- Compost Monitoring Section -->
+    <section id="monitor" class="section">
+        <h2>Monitor Your Compost</h2>
+        <p>Check your compost's temperature, moisture, and other conditions for optimal composting.</p>
+        <div id="compostDetails">
+            <ul>
+                <li>Temperature: <span id="temp">25°C</span></li>
+                <li>Moisture: <span id="moisture">45%</span></li>
+                <li>Oxygen Levels: <span id="oxygen">Good</span></li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Dashboard Section -->
+    <section id="dashboard" class="section">
+        <h2>Composting Dashboard</h2>
+        <div id="dashboardContainer">
+            <p>Total Waste Tracked: <span id="totalWaste">0</span> kg</p>
+            <p>Compost Ready: <span id="compostReady">0</span> kg</p>
+        </div>
+    </section>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
+
+
+
+//css
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+header {
+    background-color: hsla(181, 76%, 46%, 0);
+    color: #eae2e2;
+    padding: 10px 0;
+    text-align: center;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin: 0 15px;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.section {
+    padding: 40px;
+    margin: 20px auto;
+    background-color: #fff;
+    border-radius: 8px;
+    max-width: 800px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1, h2 {
+    color: #333;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+form label {
+    margin: 10px 0 5px;
+}
+form input, form select, form button {
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+#dashboardContainer {
+    padding: 20px;
+    background-color: #e0ffe0;
+    border: 1px solid #green;
+    border-radius: 8px;
+}
+
+#dashboardContainer p {
+    font-size: 1.2em;
+}
+
+
+
+
+//javascript
+let totalWaste = 0;
+
+function trackWaste() {
+    const wasteType = document.getElementById('wasteType').value;
+    const wasteAmount = parseFloat(document.getElementById('wasteAmount').value);
+    
+    if (!isNaN(wasteAmount) && wasteAmount > 0) {
+        totalWaste += wasteAmount;
+        
+        // Display waste tracking result
+        document.getElementById('wasteResult').innerText = You have added ${wasteAmount} kg of ${wasteType} to the compost.;
+        
+        // Update dashboard
+        document.getElementById('totalWaste').innerText = totalWaste;
+        
+        // Mock Compost Ready calculation (e.g., 80% of waste is compostable)
+        let compostReady = totalWaste * 0.8;
+        document.getElementById('compostReady').innerText = compostReady.toFixed(2);
+    } else {
+        alert("Please enter a valid waste amount!");
+    }
+}
